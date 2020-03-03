@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet
@@ -30,18 +31,23 @@ public class LoginController extends HttpServlet
 			PreparedStatement ps=con.prepareStatement("select * from servletbasic where uemail='"+uemail+"' and upass='"+upass+"'");
 			ResultSet rs =ps.executeQuery();
 			if(rs.next())
-			{  
+			{ 
+				String uname= rs.getString("uname");
+			   String upasss=rs.getString("upass");
+				HttpSession sess=req.getSession(true); //overloaded method
+			     sess.setAttribute("user",uname);
+			     sess.setAttribute("upass",upasss);
 				PrintWriter ps1=res.getWriter();
 				RequestDispatcher rd=req.getRequestDispatcher("Home.jsp");
 				rd.include(req,res);
-				ps1.println("You have successfully login!....");
+			//	ps1.println("You have successfully login!....");
 			}
 			else
 			{
 				PrintWriter ps1=res.getWriter();
 				RequestDispatcher rd=req.getRequestDispatcher("Login.jsp");
 				rd.include(req,res);
-				ps1.println("Invalid Login or Password Try Again!....");
+				ps1.println("<center>Invalid Login or Password Try Again!....</center>");
 			}
 
 		}catch (Exception e) 

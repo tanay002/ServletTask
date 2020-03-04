@@ -1,5 +1,7 @@
 package com.servlet.basicRegistration;
 
+import java.io.PrintWriter;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,12 +16,14 @@ public class Logout extends HttpServlet
 	{
 		try
 		{
+			PrintWriter out=res.getWriter();
 			HttpSession sess=req.getSession(false);
 			if(sess!=null)
 			{
 				sess.invalidate();
 				RequestDispatcher rd=req.getRequestDispatcher("/Login.jsp");
-				rd.forward(req, res);
+				rd.include(req, res);
+				out.print("<center>Successfully logout....!</center>");
 			}
 		}catch (Exception e) {
 			e.printStackTrace();

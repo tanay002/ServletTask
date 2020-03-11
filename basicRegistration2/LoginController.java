@@ -32,17 +32,16 @@ public class LoginController extends HttpServlet
 			ResultSet rs =ps.executeQuery();
 			if(rs.next())
 			{ 
-				String uname= rs.getString("uname");
+			//	String uname= rs.getString("uname");
 			   String upasss=rs.getString("upass");
 			   String uemailk=rs.getString("uemail");
 				HttpSession sess=req.getSession(true); //overloaded method
-			     sess.setAttribute("user",uname);
 			     sess.setAttribute("upass",upasss);
 			     sess.setAttribute("uemail",uemailk);
 				PrintWriter ps1=res.getWriter();
-				RequestDispatcher rd=req.getRequestDispatcher("Home.jsp");
+				RequestDispatcher rd=req.getRequestDispatcher("homej");
 				rd.include(req,res);
-			//	ps1.println("You have successfully login!....");
+			 ps1.println("<center>You have successfully login!....</center>");
 			}
 			else
 			{

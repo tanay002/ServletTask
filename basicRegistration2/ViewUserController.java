@@ -20,18 +20,21 @@ public class ViewUserController extends HttpServlet
 	{
 		try
 		{
+			res.setContentType("text/Html");
 			PrintWriter out=res.getWriter();	
 			HttpSession sess=req.getSession(false);
-			
-				res.setContentType("text/Html");
-				String user=(String)sess.getAttribute("user");
-				String upass=(String)sess.getAttribute("upass");
+			if(sess!=null)
+			{
+				
+				
+				//String user=(String)sess.getAttribute("user");
+			//	String upass=(String)sess.getAttribute("upass");
 				String uemail=(String) sess.getAttribute("uemail");
 
 				Class.forName("com.mysql.jdbc.Driver");
 
 				Connection con=	DriverManager.getConnection("jdbc:mysql://localhost:3306/servlet_task","root","root");
-				PreparedStatement ps=con.prepareStatement("select * from servletbasic where uemail='"+uemail+"' and upass='"+upass+"'");
+				PreparedStatement ps=con.prepareStatement("select * from servletbasic where uemail='"+uemail+"'");
 				ResultSet rs =ps.executeQuery();
 				if(rs.next())
 				{ 
@@ -41,6 +44,11 @@ public class ViewUserController extends HttpServlet
 							+ "<tr><td>Umob</td><td><input type='text' name='umob' value='"+rs.getString("umob")+"'></td></tr>"
 							+"<tr><td><input type='submit' value='update'></td></tr>");
 				}
+			}
+			else
+			{
+				res.sendRedirect("Login.jsp");
+			}
 			
 		}
 		catch (Exception e) {

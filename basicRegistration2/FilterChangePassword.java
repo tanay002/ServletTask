@@ -33,7 +33,7 @@ public class FilterChangePassword implements Filter
 		String confp= req.getParameter("confpass");
 		if(newpass.isEmpty()&&confp.isEmpty())
 		{
-			RequestDispatcher rd=req.getRequestDispatcher("/changepassword.jsp");
+			RequestDispatcher rd=req.getRequestDispatcher("changepasswordk");
 			rd.include(req,res);
 			ps.println("<center>New Password and Confirm Password can't be empty</center>");
 		}

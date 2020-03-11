@@ -22,8 +22,9 @@ public class Logout extends HttpServlet
 			{
 				sess.invalidate();
 				RequestDispatcher rd=req.getRequestDispatcher("/Login.jsp");
-				rd.include(req, res);
-				out.print("<center>Successfully logout....!</center>");
+				req.setAttribute("loginmsg", "Successfully logout....!");
+				rd.forward(req, res);
+				
 			}
 		}catch (Exception e) {
 			e.printStackTrace();

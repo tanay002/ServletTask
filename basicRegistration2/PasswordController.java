@@ -17,13 +17,14 @@ public class PasswordController extends HttpServlet
 {
 	public void doPost(HttpServletRequest req,HttpServletResponse res)
 	{
+		HttpSession ses=req.getSession(false);
 		try
 		{
-			HttpSession ses=req.getSession(false);
+
 			PrintWriter out=res.getWriter();
-		
+			if(ses!=null)
+			{	
 				String upass=(String) ses.getAttribute("upass");
-				String user=(String) ses.getAttribute("user");
 				String uemail=(String) ses.getAttribute("uemail");
 				String currentpass=req.getParameter("currentpass");
 				String newpass= req.getParameter("newpass");
@@ -39,27 +40,30 @@ public class PasswordController extends HttpServlet
 						int row=ps.executeUpdate();
 						if(row>0)
 						{
-							RequestDispatcher rd=req.getRequestDispatcher("/Home.jsp");
+							RequestDispatcher rd=req.getRequestDispatcher("homej");
 							rd.include(req, res);
 							out.println("<center>Password Set Successfully.....!</center"); 
 						}
 					}
 					else
 					{
-						RequestDispatcher rd=req.getRequestDispatcher("/changepassword.jsp");
+						RequestDispatcher rd=req.getRequestDispatcher("changepasswordk");
 						rd.include(req, res);
 						out.println("<center>Current Password doesn't match...Try Again</center");
 					}
-	
+
 				}
 				else
 				{
-					RequestDispatcher rd=req.getRequestDispatcher("/changepassword.jsp");
+					RequestDispatcher rd=req.getRequestDispatcher("changepasswordk");
 					rd.include(req, res);
 					out.println("<center>New Password and Confirm Password doen't matched...Try Again</center");
 				}
-			
-			
+			}else
+			{
+				res.sendRedirect("Login.jsp");
+			}
+
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

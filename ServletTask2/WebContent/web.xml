@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+<servlet>
+<servlet-name>First</servlet-name>
+<servlet-class>com.servlet.ServletTask</servlet-class>
+<load-on-startup></load-on-startup>
+</servlet>
+
+<servlet-mapping>
+<servlet>First</servlet>
+<url-pattern>abcd</url-pattern>
+</servlet-mapping>
+
+</web-app>
